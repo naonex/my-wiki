@@ -45,6 +45,8 @@ Defaults env_keep += "http_proxy HTTP_PROXY https_proxy HTTPS_PROXY"
 以下手順を参考にdockerインストール  
 <https://docs.docker.com/engine/install/ubuntu/>
 
+**※以下のコマンドは古いバージョンなので注意**
+
 ```
 # Add Docker's official GPG key:
 sudo apt-get update
@@ -130,3 +132,7 @@ sudo usermod -aG docker $USER
 # 3. 再ログインして、dockerコマンドが使えるようになってることを確認
 # 例：docker info ※プロキシ設定部とかが閲覧できればOK
 ```
+
+**※上の設定だけだと、一般ユーザーでイメージプル時の認証が失敗する問題があった。以下を導入すれば解決可能。**
+
+`sudo apt install gnome-keyring`
