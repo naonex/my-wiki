@@ -53,3 +53,84 @@
 
 #### アプリケーションをつくる
 (venv) `python djangoApp\manage.py startapp ffmpeg`
+
+---
+# vscodeの実行構成例
+```
+{
+    // IntelliSense を使用して利用可能な属性を学べます。
+    // 既存の属性の説明をホバーして表示します。
+    // 詳細情報は次を確認してください: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Django (本番モード起動)",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/djangoApp/manage.py",
+            "args": [
+                "runserver",
+                "--insecure"
+            ],
+            "django": true,
+            "env": {
+                "DJANGO_DEBUG": "False"
+            }
+        },
+        {
+            "name": "Django (デバッグモード起動)",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/djangoApp/manage.py",
+            "args": [
+                "runserver"
+            ],
+            "django": true,
+            "env": {
+                "DJANGO_DEBUG": "True"
+            }
+        },
+        {
+            "name": "Vite (開発サーバー起動)",
+            "type": "node-terminal",
+            "request": "launch",
+            "command": "npm.cmd run dev",
+            "cwd": "${workspaceFolder}/frontend"
+        },
+        {
+            "name": "Django (Dockerデバッグ接続)",
+            "type": "debugpy",
+            "request": "attach",
+            "connect": {
+                "host": "localhost",
+                "port": 5678
+            },
+            "pathMappings": [
+                {
+                    "localRoot": "${workspaceFolder}",
+                    "remoteRoot": "/app"
+                }
+            ],
+            "django": true
+        }
+    ],
+    "compounds": [
+        {
+            "name": "Django + Vite (デバッグモード起動)",
+            "configurations": [
+                "Django (デバッグモード起動)",
+                "Vite (開発サーバー起動)"
+            ],
+            "stopAll": true
+        },
+        {
+            "name": "Django + Vite (Dockerデバッグモード)",
+            "configurations": [
+                "Django (Dockerデバッグ接続)",
+                "Vite (開発サーバー起動)"
+            ],
+            "stopAll": true
+        }
+    ]
+}
+```
